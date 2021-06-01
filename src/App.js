@@ -16,17 +16,25 @@ const getJson = () => {
 }
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { data: {} };
+  state = {
+    data: []
   }
 
   componentDidMount() {
-    this.setState({ data: getJson() } );
+    Axios.get(
+        'http://127.0.0.1:5000/json-test'
+    ).then(res =>{
+      console.log(res.data);
+      this.setState({ data: res.data });
+    }).catch(e => {
+      console.log('error');
+      console.log(e);
+      return null;
+    })
   }
 
   render () {
-    return <h1>sample</h1>
+    return <div>{this.state.data.map(d => <li>{d.farm}</li>)}</div>
   }
 
 }
