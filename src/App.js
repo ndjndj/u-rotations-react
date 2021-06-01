@@ -7,15 +7,22 @@ const getJson = () => {
       'http://127.0.0.1:5000/json-test'
   ).then(res =>{
     console.log(res.data);
+    return res.data;
   }).catch(e => {
     console.log('error');
     console.log(e);
+    return null;
   })
 }
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: {} };
+  }
+
   componentDidMount() {
-    getJson();
+    this.setState({ data: getJson() } );
   }
 
   render () {
